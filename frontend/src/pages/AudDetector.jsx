@@ -26,7 +26,7 @@ function AudDetector() {
         formData.append('file', aud);
 
         try {
-            const response = await fetch('http://127.0.0.1:5000/predict_audio', {
+            const response = await fetch('http://192.168.0.113:5000/predict_audio', {
                 method: 'POST',
                 body: formData,
             });

@@ -7,7 +7,7 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
-  const url = 'http://localhost:8080/api/users';
+  const url = 'https://deeptruth-ai-backend.onrender.com/api/users';
 
   const login = async (accessToken) => {
     localStorage.setItem('token', accessToken);
