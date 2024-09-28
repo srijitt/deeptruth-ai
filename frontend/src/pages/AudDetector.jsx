@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { CiCircleChevRight } from 'react-icons/ci';
 import { Link } from 'react-router-dom';
-import bg from '../assets/image-bg.png';
+import bg from '../assets/audio-bg.png';
 import { FiUploadCloud } from "react-icons/fi";
 import user from '../assets/user.png';
 import { motion, AnimatePresence } from 'framer-motion';

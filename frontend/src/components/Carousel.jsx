@@ -6,7 +6,7 @@ import c3 from '../assets/c3.png';
 import c4 from '../assets/c4.png';
 import c5 from '../assets/c5.png';
 
-const images = [c1, c2, c3, c4, c5];
+const images = [c1, c3, c4, c5, c2, c1, c3, c4, c5, c2, c1, c3, c4, c5, c2];
 
 const Carousel = () => {
   return (
@@ -21,7 +21,7 @@ const Carousel = () => {
           x: {
             repeat: Infinity,
             repeatType: 'loop',
-            duration: 30, // Adjust the duration for speed
+            duration: 60, // Adjust the duration for speed
             ease: 'linear',
           },
         }}

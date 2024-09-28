@@ -9,19 +9,53 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Sidebar from '../components/Sidebar';
 import Footer from '../components/Footer';
 import { useAuth } from '../context/AuthContext';
+import Loader from '../components/Loader';
+import html2canvas from 'html2canvas';
+import { FiShare2 } from 'react-icons/fi';
+import PredictionComponent from '../components/PredictionComponent';
 
 function Detector() {
-    const [title, setTitle] = useState('');
-    const [blog, setBlog] = useState('');
+    const [prediction, setPrediction] = useState(null);
     const [loading, setLoading] = useState(false);
 
     const [img, setIMG] = useState(null); // To store the selected image
+    const { user, isAuthenticated } = useAuth();
 
-    const { isAuthenticated, user } = useAuth();
 
-    const handleBlogSubmit = async () => {
+    const handleSubmit = async () => {
+        console.log("Submitting Image: ", img);
+        setLoading(true);
+        const formData = new FormData();
+        formData.append('file', img);
 
+        try {
+            const response = await fetch('http://127.0.0.1:5000/predict_image', {
+                method: 'POST',
+                body: formData,
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                console.log(data);
+                setPrediction(data.label);
+            } else {
+                console.error(data);
+            }
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
     };
+
+    const checkImageType = (file) => {
+        const types = ['image/png', 'image/jpeg', 'image/jpg'];
+        if (types.every(type => file.type !== type)) {
+            alert('Invalid Image File');
+            return;
+        }
+        return true;
+    }
 
 
 
@@ -42,7 +76,7 @@ function Detector() {
     };
 
     return (
-        <div className='bg-primary w-[100vw] h-[100vh] flex justify-between' style={myStyle}>
+        <div className='bg-primary font-pregular w-[100vw] h-[100vh] flex justify-between' style={myStyle}>
 
             <div className='w-[100%] h-full overflow-scroll flex flex-col justify-between' >
                 <div className='text-white w-full flex flex-col items-center'>
@@ -61,16 +95,17 @@ function Detector() {
                         <div className='p-16 rounded-xl text-center bg-layer bg-opacity-90 flex flex-col items-center justify-center'>
                             <img src={URL.createObjectURL(img)} alt="" className='w-[20vw] object-contain rounded-xl' />
                             <div className='flex justify-center items-center gap-4'>
-                                <button className={`mt-8 bg-white text-primary font-psemibold hover:blur-[1px] hover:text-primary px-5 py-2 rounded-md font-medium disabled:opacity-25 disabled:cursor-wait`} disabled={loading} onClick={handleBlogSubmit}>
+                                <button className={`mt-8 bg-white text-primary font-psemibold hover:blur-[1px] hover:text-primary px-5 py-2 rounded-md font-medium disabled:opacity-25 disabled:cursor-wait`} disabled={loading} onClick={handleSubmit}>
                                     <span>Check</span>
                                 </button>
 
-                                <button className={`mt-8 bg-secondary text-white font-psemibold hover:blur-[1px] hover:text-primary px-5 py-2 rounded-md font-medium disabled:opacity-25 disabled:cursor-wait`} disabled={loading} onClick={() => {setIMG(null)}}>
+                                <button className={`mt-8 bg-secondary text-white font-psemibold hover:blur-[1px] hover:text-primary px-5 py-2 rounded-md font-medium disabled:opacity-25 disabled:cursor-wait`} disabled={loading} onClick={() => { setIMG(null) }}>
                                     <span>Back</span>
                                 </button>
                             </div>
-
                         </div>
+
+                        <PredictionComponent prediction={prediction}/>
 
                     </div> :
                         <div className='w-full flex flex-col items-center'>
@@ -88,9 +123,10 @@ function Detector() {
                                             className="custom-file-input text-transparent rounded-md bg-transparent outline-none"
                                             // Event handler to capture file selection and update the state
                                             onChange={(event) => {
-                                                console.log(event.target.files[0]); // Log the selected file
-                                                setIMG(event.target.files[0]); // Update the state with the selected file
-                                                setSelectedImage(event.target.files[0]); // Update the context with the selected file
+                                                console.log(event.target.files[0]);
+                                                if (!checkImageType(event.target.files[0])) return;
+                                                setIMG(event.target.files[0]);
+                                                setPrediction(null);
                                             }}
                                         />
 

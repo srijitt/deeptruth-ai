@@ -15,8 +15,8 @@ function VidDetector() {
     const [blog, setBlog] = useState('');
     const [loading, setLoading] = useState(false);
 
-    const [img, setIMG] = useState(null); // To store the selected image
-    
+    const [vid, setVID] = useState(null); // To store the selected image
+
     const { isAuthenticated, user } = useAuth();
 
     const handleBlogSubmit = async () => {
@@ -24,11 +24,11 @@ function VidDetector() {
     };
 
     useEffect(() => {
-        if(!isAuthenticated) {
+        if (!isAuthenticated) {
             window.location.href = '/login';
         }
-        console.log("Selected Image: ", img);
-    }, [img, isAuthenticated]);
+        console.log("Selected Image: ", vid);
+    }, [vid, isAuthenticated]);
 
 
 
@@ -55,12 +55,18 @@ function VidDetector() {
                         <Link to='/home'><h1 className='text-xl font-pbold text-secondary'>deeptruth.ai</h1></Link>
                     </div>
 
-                    {img != null ? <div className='w-full  py-12 flex flex-col justify-center items-center'>
+                    {vid != null ? <div className='w-full  py-12 flex flex-col justify-center items-center'>
                         <div className='p-16 rounded-xl text-center bg-layer bg-opacity-90 flex flex-col items-center justify-center'>
-                            <img src={URL.createObjectURL(img)} alt="" className='w-[20vw] object-contain rounded-xl' />
-                            <button className={`mt-8 bg-white text-primary font-psemibold hover:blur-[1px] hover:text-primary px-5 py-2 rounded-md font-medium disabled:opacity-25 disabled:cursor-wait`} disabled={loading} onClick={handleBlogSubmit}>
-                                <span>Generate</span>
-                            </button>
+                            <p>{vid.name} <span className='text-xs italic'>({(vid.size / (1024 * 1024)).toFixed(2)} MB)</span></p>
+                            <div className='flex justify-center items-center gap-4'>
+                                <button className={`mt-8 bg-white text-primary font-psemibold hover:blur-[1px] hover:text-primary px-5 py-2 rounded-md font-medium disabled:opacity-25 disabled:cursor-wait`} disabled={loading} onClick={handleBlogSubmit}>
+                                    <span>Check</span>
+                                </button>
+
+                                <button className={`mt-8 bg-secondary text-white font-psemibold hover:blur-[1px] hover:text-primary px-5 py-2 rounded-md font-medium disabled:opacity-25 disabled:cursor-wait`} disabled={loading} onClick={() => {setVID(null)}}>
+                                    <span>Back</span>
+                                </button>
+                            </div>
                         </div>
 
                     </div> :
@@ -80,8 +86,7 @@ function VidDetector() {
                                             // Event handler to capture file selection and update the state
                                             onChange={(event) => {
                                                 console.log(event.target.files[0]); // Log the selected file
-                                                setIMG(event.target.files[0]); // Update the state with the selected file
-                                                setSelectedImage(event.target.files[0]); // Update the context with the selected file
+                                                setVID(event.target.files[0]); // Update the state with the selected file
                                             }}
                                         />
 
@@ -91,7 +96,7 @@ function VidDetector() {
                                     <div>
                                         {!loading ?
                                             <span><FiUploadCloud size={25} /></span> :
-                                            <span><img src={logo} alt="" width={30} /></span>
+                                            <span><vid src={logo} alt="" width={30} /></span>
                                         }
                                     </div>
                                 </div>

@@ -8,6 +8,9 @@ import Carousel from '../components/Carousel';
 import Blog from '../components/Blog';
 import Footer from '../components/Footer';
 import { useAuth } from '../context/AuthContext';
+import { IoCloudUpload } from "react-icons/io5";
+import { FaBrain } from "react-icons/fa";
+import { TbReportSearch } from "react-icons/tb";
 
 const Landing = () => {
 
@@ -25,18 +28,21 @@ const Landing = () => {
     const steps = [
         {
             id: 1,
+            icon: <IoCloudUpload size={40}/>,
             title: '01',
-            desc: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione, exercitationem.'
+            desc: 'Upload an image to get started.'
         },
         {
             id: 2,
+            icon: <FaBrain size={40}/>,
             title: '02',
-            desc: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione, exercitationem.'
+            desc: 'Our AI model analyzes the image thoroughly.'
         },
         {
             id: 3,
+            icon: <TbReportSearch size={40}/>,
             title: '03',
-            desc: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione, exercitationem.'
+            desc: "Check the results to see if it's a deepfake or authentic."
         }
     ]
 
@@ -77,7 +83,9 @@ const Landing = () => {
                         <div className='flex flex-wrap justify-between items-center gap-4'>
                             {steps.map(step => (
                                 <div key={step.id} className='flex flex-col items-start justify-center bg-primary p-4 rounded-lg bg-opacity-70 w-[40vw] lg:w-[30vw] lg:h-[15vh]'>
-                                    <h1 className='text-2xl font-pbold'>{step.title}</h1>
+                                    <div className='flex justify-center mb-4'>
+                                        {step.icon}
+                                    </div>
                                     <p className='text-xs'>{step.desc}</p>
                                 </div>
                             ))}
