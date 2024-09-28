@@ -23,10 +23,10 @@ const Sign_up = asyncHandler(async (req, res) => {
   const userExists = await User.findOne({ email });
   const usernameExists = await User.findOne({ username });
   if (userExists) {
-    return res.status(400).json("User already exists");
+    return res.status(400).json({message: "User already exists"});
   }
   if (usernameExists) {
-    return res.status(400).json("Username already exists");
+    return res.status(400).json({message: "Username already exists"});
   }
 
   // Determine role based on username pattern
@@ -58,7 +58,7 @@ const Sign_up = asyncHandler(async (req, res) => {
   );
 
   // Respond with the access token
-  res.json({ userExists, accessToken });
+  res.json({ user, accessToken });
 });
 
 // Sign-in function
@@ -89,7 +89,7 @@ const Sign_in = asyncHandler(async (req, res) => {
     // Respond with the access token
     res.json({ userAvailable, accessToken });
   } else if (!userAvailable) {
-    res.status(401).json("Please Sign-Up first");
+    res.status(401).json({message: "User not found"});
   } else {
     res.status(401).json("Invalid email or password");
   }

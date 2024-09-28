@@ -1,32 +1,82 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import { FiLoader } from 'react-icons/fi';
 
 function Signup() {
+
+    const [data, setData] = useState({
+        username: '',
+        name: '',
+        email: '',
+        password: ''
+    })
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const { login, url } = useAuth();
+
+    const handleSignup = async () => {
+        if (data.username === '' || data.email === '' || data.password === '' || data.name === '') {
+            setError('Please fill all the fields');
+            return false;
+        }
+        else {
+            setLoading(true);
+            try {
+                const response = await fetch(`${url}/signup`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const responseData = await response.json();
+                if (response.ok) {
+                    const accessToken = responseData.accessToken;
+                    login(accessToken);
+
+                }
+                else {
+                    setError(responseData.message);
+                    setLoading(false);
+                    return false;
+                }
+            } catch (error) {
+                alert(error.message);
+                setLoading(false);
+                return false;
+            }
+        }
+    }
+
     return (
         <div className='w-[100vw] h-[100vh] bg-primary flex justify-center items-center'>
-            <div className='bg-layer w-[90vw] lg:w-[40vw] h-[65vh] lg:h-[55vh] xl:h-[65vh] py-10 rounded-lg flex flex-col items-center'>
+            <div className='bg-layer w-[90vw] lg:w-[45vw] h-[75vh] lg:h-[60vh] xl:h-[75vh] py-10 rounded-lg flex flex-col items-center'>
                 <div className='flex flex-col justify-center items-center'>
                     <h1 className='text-secondary text-3xl font-pbold'>Signup</h1>
                     <p className='mt-2 text-xs font-pregular w-2/3 text-center'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus, recusandae.</p>
                 </div>
 
                 <div className='w-[80vw] md:w-[60vw] lg:w-[40vw] flex flex-col justify-center items-center mb-2 mt-4 lg:mt-10'>
-                    <input type="text" placeholder="Full Name" className='w-[70vw] lg:w-[25vw] text-white px-4 py-3 bg-primary rounded-md mt-4 focus:outline-none focus:caret-secondary' />
+                    <input type="text" placeholder="Username" className='w-[70vw] lg:w-[25vw] text-white px-4 py-3 bg-primary rounded-md mt-4 focus:outline-none focus:caret-secondary' onChange={(e) => setData({ ...data, username: e.target.value })} />
 
-                    <input type="email" placeholder="Email" className='w-[70vw] lg:w-[25vw] text-white px-4 py-3 bg-primary rounded-md mt-4 focus:outline-none focus:caret-secondary' />
+                    <input type="text" placeholder="Full Name" className='w-[70vw] lg:w-[25vw] text-white px-4 py-3 bg-primary rounded-md mt-4 focus:outline-none focus:caret-secondary' onChange={(e) => setData({ ...data, name: e.target.value })} />
 
-                    <input type="password" placeholder="Password" className='w-[70vw] lg:w-[25vw] text-white px-4 py-3 bg-primary rounded-md mt-4 focus:outline-none focus:caret-secondary' />
+                    <input type="email" placeholder="Email" className='w-[70vw] lg:w-[25vw] text-white px-4 py-3 bg-primary rounded-md mt-4 focus:outline-none focus:caret-secondary' onChange={(e) => setData({ ...data, email: e.target.value })} />
 
-                    <button className='mt-10 bg-white text-primary font-pbold px-8 py-2 rounded-lg'>Signup</button>
+                    <input type="password" placeholder="Password" className='w-[70vw] lg:w-[25vw] text-white px-4 py-3 bg-primary rounded-md mt-4 focus:outline-none focus:caret-secondary' onChange={(e) => setData({ ...data, password: e.target.value })} />
+
+                    <button type='submit' className={`mt-10 bg-white text-primary font-pbold px-8 py-2 rounded-lg disabled:opacity-30`} disabled={loading} onClick={handleSignup}>{loading ? <FiLoader /> : "Signup"}</button>
                 </div>
 
                 <Link to='/login'>
-                <div className='w-[80vw] md:w-[60vw] lg:w-[40vw] flex flex-col justify-center items-center mb-2'>
+                    <div className='w-[80vw] md:w-[60vw] lg:w-[40vw] flex flex-col justify-center items-center mb-2'>
                         <p className='text-secondary w-1/2 text-center text-xs lg:text-sm'>Back to Login</p>
-                </div>
-            </Link>
+                    </div>
+                </Link>
             </div>
-            
+
         </div>
     )
 }

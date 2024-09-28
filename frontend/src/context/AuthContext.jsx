@@ -7,25 +7,26 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
+  const url = 'http://localhost:8080/api/users';
 
   const login = async (accessToken) => {
     localStorage.setItem('token', accessToken);
     setIsAuthenticated(true);
     fetchUserData();
-    navigate('/dashboard');
+    navigate('/');
   };
 
   const logout = () => {
     localStorage.removeItem('token');
     setIsAuthenticated(false);
     setUser(null);
-    navigate('/auth');
+    navigate('/');
   };
 
   const fetchUserData = async () => {
     const token = localStorage.getItem('token');
     if (token) {
-      const response = await fetch('http://localhost:8000/api/users/profile', {
+      const response = await fetch(`${url}/user/profile`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -46,7 +47,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, user, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, user, login, logout, url }}>
       {children}
     </AuthContext.Provider>
   );

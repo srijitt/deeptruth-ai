@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import { CiCircleChevRight } from 'react-icons/ci';
 import { motion } from 'framer-motion';
+import { useAuth } from '../context/AuthContext';
 
 function Navbar() {
+    
+    const { isAuthenticated, user } = useAuth();
+
     return (
         <motion.nav 
             initial={{ y: -50, opacity: 0 }}
@@ -15,11 +19,17 @@ function Navbar() {
                 <p className='w-1/2'>deeptruth.ai</p>
             </div>
             <div className='flex flex-row items-center gap-4'>
+                {isAuthenticated ? <Link to='/profile'>
+                    <button className={`bg-white text-primary hover:text-primary  hover:bg-opacity-50 px-8 py-2 rounded-md flex justify-between items-center text-sm font-pmedium`}>
+                        <span className='text-xs font-pmedium'>{user?.username} (Profile)</span>
+                    </button>
+                </Link> : 
+                
                 <Link to='/login'>
                     <button className={`bg-white text-primary hover:text-primary  hover:bg-opacity-50 px-8 py-2 rounded-md flex justify-between items-center text-sm font-pmedium`}>
                         <span className='text-xs font-pmedium'>Login</span>
                     </button>
-                </Link>
+                </Link>}
             </div>
         </motion.nav>
     )

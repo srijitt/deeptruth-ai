@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { CiCircleChevRight } from 'react-icons/ci';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -36,6 +36,8 @@ const Landing = () => {
             desc: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione, exercitationem.'
         }
     ]
+
+    
 
     return (
         <main className='bg-primary flex flex-col items-center w-[100vw] h-[100vh]'>
