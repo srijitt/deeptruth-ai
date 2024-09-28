@@ -8,7 +8,7 @@ import user from '../assets/user.png';
 import { motion, AnimatePresence } from 'framer-motion';
 import Sidebar from '../components/Sidebar';
 
-function ImageDetector() {
+function Detector() {
     const [title, setTitle] = useState('');
     const [blog, setBlog] = useState('');
     const [loading, setLoading] = useState(false);
@@ -35,19 +35,17 @@ function ImageDetector() {
     return (
         <div className='bg-primary w-[100vw] h-[100vh] flex justify-between' style={myStyle}>
 
-            <Sidebar />
-
             <div className='w-[100%] h-full overflow-scroll flex justify-between' >
-                <div className='text-white w-full flex flex-col'>
-                    <div className='flex justify-between items-center px-10 py-6 mb-10'>
+                <div className='text-white w-full flex flex-col items-center'>
+                    <div className='flex justify-between w-[100vw] md:w-[60vw] md:mt-2 md:rounded-lg items-center px-4 py-4 mb-10 bg-primary bg-opacity-70'>
                         <Link to="/">
                             <button className='flex justify-start text-white text-sm font-semibold items-center gap-2'>
                                 <span><IoMdArrowRoundBack size={20} color='white' /></span>
-                                <p className='hover:text-secondary font-pthin'>Back</p>
+                                <p className='hidden md:block hover:text-secondary font-pthin'>Back</p>
                             </button>
                         </Link>
                         <h1 className='text-xl font-pmedium'>Detect your image.</h1>
-                        <Link to='/home'><h1 className='text-2xl font-pbold'>deeptruth.ai</h1></Link>
+                        <Link to='/home'><h1 className='text-xl font-pbold text-secondary'>deeptruth.ai</h1></Link>
                     </div>
 
                     {img != null ? <div className='w-full  py-12 flex flex-col justify-center items-center'>
@@ -98,4 +96,4 @@ function ImageDetector() {
     );
 }
 
-export default ImageDetector;
+export default Detector;
