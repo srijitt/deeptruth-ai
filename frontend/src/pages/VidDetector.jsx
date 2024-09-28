@@ -9,25 +9,56 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Sidebar from '../components/Sidebar';
 import Footer from '../components/Footer';
 import { useAuth } from '../context/AuthContext';
+import PredictionComponent from '../components/PredictionComponent';
 
 function VidDetector() {
-    const [title, setTitle] = useState('');
-    const [blog, setBlog] = useState('');
+    const [prediction, setPrediction] = useState(null);
     const [loading, setLoading] = useState(false);
 
     const [vid, setVID] = useState(null); // To store the selected image
 
     const { isAuthenticated, user } = useAuth();
 
-    const handleBlogSubmit = async () => {
+    const handleSubmit = async () => {
+        console.log("Submitting Video: ", vid);
+        setLoading(true);
+        const formData = new FormData();
+        formData.append('file', vid);
 
+        try {
+            const response = await fetch('http://127.0.0.1:5000/predict_video', {
+                method: 'POST',
+                body: formData,
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                console.log(data);
+                setPrediction(data.label);
+            } else {
+                console.error(data);
+            }
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
     };
+
+    const checkVideoType = (file) => {
+        const types = ['video/mp4', 'video/mkv'];
+        if (types.every(type => file.type !== type)) {
+            alert('Invalid Video File');
+            return;
+        }
+        return true;
+    }
 
     useEffect(() => {
         if (!isAuthenticated) {
             window.location.href = '/login';
         }
-        console.log("Selected Image: ", vid);
+        console.log("Selected Video: ", vid);
     }, [vid, isAuthenticated]);
 
 
@@ -52,14 +83,14 @@ function VidDetector() {
                             </button>
                         </Link>
                         <h1 className='text-xl font-pmedium'>{user?.name}</h1>
-                        <Link to='/home'><h1 className='text-xl font-pbold text-secondary'>deeptruth.ai</h1></Link>
+                        <Link to='/'><h1 className='text-xl font-pbold text-secondary'>deeptruth.ai</h1></Link>
                     </div>
 
                     {vid != null ? <div className='w-full  py-12 flex flex-col justify-center items-center'>
                         <div className='p-16 rounded-xl text-center bg-layer bg-opacity-90 flex flex-col items-center justify-center'>
                             <p>{vid.name} <span className='text-xs italic'>({(vid.size / (1024 * 1024)).toFixed(2)} MB)</span></p>
                             <div className='flex justify-center items-center gap-4'>
-                                <button className={`mt-8 bg-white text-primary font-psemibold hover:blur-[1px] hover:text-primary px-5 py-2 rounded-md font-medium disabled:opacity-25 disabled:cursor-wait`} disabled={loading} onClick={handleBlogSubmit}>
+                                <button className={`mt-8 bg-white text-primary font-psemibold hover:blur-[1px] hover:text-primary px-5 py-2 rounded-md font-medium disabled:opacity-25 disabled:cursor-wait`} disabled={loading} onClick={handleSubmit}>
                                     <span>Check</span>
                                 </button>
 
@@ -68,6 +99,8 @@ function VidDetector() {
                                 </button>
                             </div>
                         </div>
+
+                        <PredictionComponent prediction={prediction} />
 
                     </div> :
                         <div className='w-full flex flex-col items-center'>
@@ -85,8 +118,9 @@ function VidDetector() {
                                             className="custom-file-input text-transparent rounded-md bg-transparent outline-none"
                                             // Event handler to capture file selection and update the state
                                             onChange={(event) => {
-                                                console.log(event.target.files[0]); // Log the selected file
-                                                setVID(event.target.files[0]); // Update the state with the selected file
+                                                setPrediction(null);
+                                                console.log(event.target.files[0]);
+                                                if(checkVideoType(event.target.files[0]))                                    setVID(event.target.files[0]);
                                             }}
                                         />
 

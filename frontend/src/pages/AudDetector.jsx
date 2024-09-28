@@ -9,26 +9,57 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Sidebar from '../components/Sidebar';
 import Footer from '../components/Footer';
 import { useAuth } from '../context/AuthContext';
+import PredictionComponent from '../components/PredictionComponent';
 
 function AudDetector() {
-    const [title, setTitle] = useState('');
-    const [blog, setBlog] = useState('');
+    const [prediction, setPrediction] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    const [img, setIMG] = useState(null); // To store the selected image
-    
+    const [aud, setAUD] = useState(null); // To store the selected image
+
     const { isAuthenticated, user } = useAuth();
 
-    const handleBlogSubmit = async () => {
+    const handleSubmit = async () => {
+        console.log("Submitting Audio: ", aud);
+        setLoading(true);
+        const formData = new FormData();
+        formData.append('file', aud);
 
+        try {
+            const response = await fetch('http://127.0.0.1:5000/predict_audio', {
+                method: 'POST',
+                body: formData,
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                console.log(data);
+                setPrediction(data.label);
+            } else {
+                console.error(data);
+            }
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
     };
 
+    const checkAudioType = (file) => {
+        const types = ['audio/mp3', 'audio/wav'];
+        if (types.every(type => file.type !== type)) {
+            alert('Invalid Audio File');
+            return;
+        }
+        return true;
+    }
+
     useEffect(() => {
-        if(!isAuthenticated) {
+        if (!isAuthenticated) {
             window.location.href = '/login';
         }
-        console.log("Selected Image: ", img);
-    }, [img, isAuthenticated]);
+        console.log("Selected Video: ", aud);
+    }, [aud, isAuthenticated]);
 
 
 
@@ -52,16 +83,24 @@ function AudDetector() {
                             </button>
                         </Link>
                         <h1 className='text-xl font-pmedium'>{user?.name}</h1>
-                        <Link to='/home'><h1 className='text-xl font-pbold text-secondary'>deeptruth.ai</h1></Link>
+                        <Link to='/'><h1 className='text-xl font-pbold text-secondary'>deeptruth.ai</h1></Link>
                     </div>
 
-                    {img != null ? <div className='w-full  py-12 flex flex-col justify-center items-center'>
+                    {aud != null ? <div className='w-full  py-12 flex flex-col justify-center items-center'>
                         <div className='p-16 rounded-xl text-center bg-layer bg-opacity-90 flex flex-col items-center justify-center'>
-                            <img src={URL.createObjectURL(img)} alt="" className='w-[20vw] object-contain rounded-xl' />
-                            <button className={`mt-8 bg-white text-primary font-psemibold hover:blur-[1px] hover:text-primary px-5 py-2 rounded-md font-medium disabled:opacity-25 disabled:cursor-wait`} disabled={loading} onClick={handleBlogSubmit}>
-                                <span>Generate</span>
-                            </button>
+                            <p>{aud.name} <span className='text-xs italic'>({(aud.size / (1024 * 1024)).toFixed(2)} MB)</span></p>
+                            <div className='flex justify-center items-center gap-4'>
+                                <button className={`mt-8 bg-white text-primary font-psemibold hover:blur-[1px] hover:text-primary px-5 py-2 rounded-md font-medium disabled:opacity-25 disabled:cursor-wait`} disabled={loading} onClick={handleSubmit}>
+                                    <span>Check</span>
+                                </button>
+
+                                <button className={`mt-8 bg-secondary text-white font-psemibold hover:blur-[1px] hover:text-primary px-5 py-2 rounded-md font-medium disabled:opacity-25 disabled:cursor-wait`} disabled={loading} onClick={() => {setAUD(null)}}>
+                                    <span>Back</span>
+                                </button>
+                            </div>
                         </div>
+
+                        <PredictionComponent prediction={prediction} />
 
                     </div> :
                         <div className='w-full flex flex-col items-center'>
@@ -79,23 +118,23 @@ function AudDetector() {
                                             className="custom-file-input text-transparent rounded-md bg-transparent outline-none"
                                             // Event handler to capture file selection and update the state
                                             onChange={(event) => {
-                                                console.log(event.target.files[0]); // Log the selected file
-                                                setIMG(event.target.files[0]); // Update the state with the selected file
-                                                setSelectedImage(event.target.files[0]); // Update the context with the selected file
+                                                setPrediction(null);
+                                                console.log(event.target.files[0]);
+                                                if(checkAudioType(event.target.files[0]))  setAUD(event.target.files[0]);
                                             }}
                                         />
 
-                                        <p className='font-plight text-xs opacity-40 bg-transparent outline-none mt-2 mr-4 w-full'>(Preferably MP3, AAC)</p>
+                                        <p className='font-plight text-xs opacity-40 bg-transparent outline-none mt-2 mr-4 w-full'>(Preferably MP4, MKV)</p>
                                     </div>
 
                                     <div>
                                         {!loading ?
                                             <span><FiUploadCloud size={25} /></span> :
-                                            <span><img src={logo} alt="" width={30} /></span>
+                                            <span><aud src={logo} alt="" width={30} /></span>
                                         }
                                     </div>
                                 </div>
-                                <p className='w-1/2 md:w-1/3 mt-3 font-plight text-center text-xs bg-transparent outline-none mr-4'>Just upload an image and watch our technology figure out the rest of it.</p>
+                                <p className='w-1/2 md:w-1/3 mt-3 font-plight text-center text-xs bg-transparent outline-none mr-4'>Just upload a video and watch our technology figure out the rest of it.</p>
                             </motion.div>
 
                             <motion.div className='mt-4 bg-secondary flex flex-col items-center p-4 rounded-lg'>

@@ -88,7 +88,7 @@ function Detector() {
                             </button>
                         </Link>
                         <h1 className='text-xl font-pmedium'>{user?.name}</h1>
-                        <Link to='/home'><h1 className='text-xl font-pbold text-secondary'>deeptruth.ai</h1></Link>
+                        <Link to='/'><h1 className='text-xl font-pbold text-secondary'>deeptruth.ai</h1></Link>
                     </div>
 
                     {img != null ? <div className='w-full  py-12 flex flex-col justify-center items-center'>
