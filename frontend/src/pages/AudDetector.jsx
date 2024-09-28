@@ -10,23 +10,21 @@ import Sidebar from '../components/Sidebar';
 import Footer from '../components/Footer';
 import { useAuth } from '../context/AuthContext';
 
-function Detector() {
+function AudDetector() {
     const [title, setTitle] = useState('');
     const [blog, setBlog] = useState('');
     const [loading, setLoading] = useState(false);
 
     const [img, setIMG] = useState(null); // To store the selected image
-
+    
     const { isAuthenticated, user } = useAuth();
 
     const handleBlogSubmit = async () => {
 
     };
 
-
-
     useEffect(() => {
-        if (!isAuthenticated) {
+        if(!isAuthenticated) {
             window.location.href = '/login';
         }
         console.log("Selected Image: ", img);
@@ -60,16 +58,9 @@ function Detector() {
                     {img != null ? <div className='w-full  py-12 flex flex-col justify-center items-center'>
                         <div className='p-16 rounded-xl text-center bg-layer bg-opacity-90 flex flex-col items-center justify-center'>
                             <img src={URL.createObjectURL(img)} alt="" className='w-[20vw] object-contain rounded-xl' />
-                            <div className='flex justify-center items-center gap-4'>
-                                <button className={`mt-8 bg-white text-primary font-psemibold hover:blur-[1px] hover:text-primary px-5 py-2 rounded-md font-medium disabled:opacity-25 disabled:cursor-wait`} disabled={loading} onClick={handleBlogSubmit}>
-                                    <span>Check</span>
-                                </button>
-
-                                <button className={`mt-8 bg-secondary text-white font-psemibold hover:blur-[1px] hover:text-primary px-5 py-2 rounded-md font-medium disabled:opacity-25 disabled:cursor-wait`} disabled={loading} onClick={() => {setIMG(null)}}>
-                                    <span>Back</span>
-                                </button>
-                            </div>
-
+                            <button className={`mt-8 bg-white text-primary font-psemibold hover:blur-[1px] hover:text-primary px-5 py-2 rounded-md font-medium disabled:opacity-25 disabled:cursor-wait`} disabled={loading} onClick={handleBlogSubmit}>
+                                <span>Generate</span>
+                            </button>
                         </div>
 
                     </div> :
@@ -94,7 +85,7 @@ function Detector() {
                                             }}
                                         />
 
-                                        <p className='font-plight text-xs opacity-40 bg-transparent outline-none mt-2 mr-4 w-full'>(Preferably JPG, PNG, JPEG)</p>
+                                        <p className='font-plight text-xs opacity-40 bg-transparent outline-none mt-2 mr-4 w-full'>(Preferably MP3, AAC)</p>
                                     </div>
 
                                     <div>
@@ -107,20 +98,20 @@ function Detector() {
                                 <p className='w-1/2 md:w-1/3 mt-3 font-plight text-center text-xs bg-transparent outline-none mr-4'>Just upload an image and watch our technology figure out the rest of it.</p>
                             </motion.div>
 
-                            <motion.div className='mt-4 bg-secondary bg-opacity-70 flex flex-col items-center p-4 rounded-lg'>
+                            <motion.div className='mt-4 bg-secondary flex flex-col items-center p-4 rounded-lg'>
                                 <p className='font-pregular'>Try other formats</p>
 
                                 <div className='flex justify-center items-center gap-4'>
-                                    <Link to='/video'>
+                                    <Link to='/image'>
                                         <button className={`bg-white text-primary hover:bg-opacity-70 hover:text-primary px-4 xl:px-6 py-3 rounded-md mt-4 flex justify-between items-center text-sm font-medium`}>
-                                            <span className='text-xxs lg:text-xs xl:text-sm'>Video</span>
+                                            <span className='text-xxs lg:text-xs xl:text-sm'>Image</span>
                                             <span className='ml-2'><CiCircleChevRight size={25} /></span>
                                         </button>
                                     </Link>
 
-                                    <Link to='/audio'>
+                                    <Link to='/video'>
                                         <button className={`bg-white text-primary hover:bg-opacity-70 hover:text-primary px-4 xl:px-6 py-3 rounded-md mt-4 flex justify-between items-center text-sm font-medium`}>
-                                            <span className='text-xxs lg:text-xs xl:text-sm'>Audio</span>
+                                            <span className='text-xxs lg:text-xs xl:text-sm'>Video</span>
                                             <span className='ml-2'><CiCircleChevRight size={25} /></span>
                                         </button>
                                     </Link>
@@ -136,4 +127,4 @@ function Detector() {
     );
 }
 
-export default Detector;
+export default AudDetector;

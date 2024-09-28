@@ -7,6 +7,8 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import { AuthProvider } from './context/AuthContext';
 import Profile from './pages/Profile';
+import VidDetector from './pages/VidDetector';
+import AudDetector from './pages/AudDetector';
 
 function App() {
 
@@ -19,6 +21,8 @@ function App() {
             <Route exact path='/login' element={<Login />} />
             <Route exact path='/signup' element={<Signup />} />
             <Route exact path="/image" element={<Detector />} />
+            <Route exact path="/video" element={<VidDetector />} />
+            <Route exact path="/audio" element={<AudDetector />} />
             <Route exact path="/profile" element={<Profile />} />
           </Routes>
         </AuthProvider>

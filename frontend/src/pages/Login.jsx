@@ -62,7 +62,7 @@ function Login() {
         className='bg-white md:w-[60vw] md:rounded-lg md:mt-2 bg-opacity-80 w-full flex flex-row justify-center items-center px-8 py-4'>
         <div className='flex justify-start items-center font-pbold text-white text-xl'>
           {/* <img src={logo} alt="logo" className='w-[3vw]' /> */}
-          <p className='w-1/2 text-secondary'>deeptruth.ai</p>
+          <Link to='/'><p className='w-1/2 text-secondary'>deeptruth.ai</p></Link>
         </div>
       </motion.nav>
 

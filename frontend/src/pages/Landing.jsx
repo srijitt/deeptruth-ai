@@ -7,8 +7,11 @@ import Navbar from '../components/Navbar';
 import Carousel from '../components/Carousel';
 import Blog from '../components/Blog';
 import Footer from '../components/Footer';
+import { useAuth } from '../context/AuthContext';
 
 const Landing = () => {
+
+    const { isAuthenticated } = useAuth();
 
     const myStyle = {
         backgroundImage: `url(${bg})`,
@@ -56,7 +59,7 @@ const Landing = () => {
                         </div>
 
                         <div className='flex flex-col items-start justify-center mt-6'>
-                            <Link to='/image'>
+                            <Link to={isAuthenticated ? `/image` : `/login`}>
                                 <button className={`w-[30vw] lg:w-[15vw] bg-white text-primary flex justify-center items-center hover:bg-opacity-50 py-3 rounded-md`}>
                                     <span className='text-xs md:text-base font-pbold'>Detect now</span>
                                 </button>

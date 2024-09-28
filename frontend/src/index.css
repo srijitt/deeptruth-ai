@@ -11,6 +11,7 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 
@@ -58,7 +59,6 @@
   font-family: "Roboto-Black";
   src: url("../src/assets/fonts/Roboto-Black.ttf");
 }
-
 
 
 
