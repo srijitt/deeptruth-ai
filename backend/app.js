@@ -13,7 +13,7 @@ connectDb();
 app.use(express.json());
 app.use(cors({ origin: '*' }));
 app.use(cors({
-  origin: 'http://localhost:5173', // Specify your frontend origin
+  origin: 'https://deeptruth-ai.vercel.app', // Specify your frontend origin
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed methods
   allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
   credentials: true // Allow credentials if needed
