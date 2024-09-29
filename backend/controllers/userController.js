@@ -5,6 +5,17 @@ const bcrypt = require('bcrypt');
 const User = require('../models/user');
 const constants = require("../constants");
 
+const createCheckoutSession = asyncHandler(async (req,res) => {
+  const {name, email, plan, price} = req.body;
+  const session = await stripe.checkout.session.create({
+    payment_method_types:["card"],
+    line_items:lineItems,
+    mode:"payment",
+    success_url:"http://localhost:8080/success",
+    cancel_url:"http://localhost:8080/cancel"
+  })
+  res.json({id:session.id})
+})
 // Determine role based on username pattern
 const determineUserRole = (username) => {
   return username.startsWith("admin_") ? "admin" : "user";
@@ -126,4 +137,5 @@ module.exports = {
   Sign_in,
   Sign_out,
   userProfile,
+  createCheckoutSession
 };

@@ -1,6 +1,23 @@
-import React from 'react';
+import React from "react";
 
 const Pricing = () => {
+  const makePayment = async () => {
+    const stripe = await loadStripe("pk_test_51Q4GfVGUiRe4JoDt253YHSEZ5U9c0hi4qoeRjaTL7zM7NevZhHATV1pnX0UI5aqCgCKmwJ9Sx4es1CP3RO4pk0mF00937eNtvQ")
+    const headers = {
+      "Content-Type":"Application/json"
+    }
+    const response = await fetch(`${apiURL}/create-checkout-session`,{
+      method:"POST",
+      headers:headers,
+      body:JSON.stringify(body)
+    })
+
+    const session = await response.json();
+    const result = stripe.redirectToCheckout({
+      sessionId: session.id,
+    })
+
+  }
   return (
     <div className="bg-white dark:bg-gray-900">
       <div className="container px-6 py-8 mx-auto">
@@ -87,7 +104,7 @@ const Pricing = () => {
                   <h2 className="mt-4 text-2xl font-semibold text-gray-700 sm:text-3xl dark:text-gray-300">
                     $10.00 <span className="text-base font-medium">/month</span>
                   </h2>
-                  <button className="w-full px-4 py-2 mt-6 tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:bg-blue-500 focus:ring focus:ring-blue-300 focus:ring-opacity-80">
+                  <button onclick = {makePayment} className="w-full px-4 py-2 mt-6 tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:bg-blue-500 focus:ring focus:ring-blue-300 focus:ring-opacity-80">
                     Start Now
                   </button>
                 </div>

@@ -29,7 +29,7 @@ function Detector() {
         formData.append('file', img);
 
         try {
-            const response = await fetch('https://cab1-49-37-34-186.ngrok-free.app/predict_image', {
+            const response = await fetch('https://bc42-49-37-34-186.ngrok-free.app/predict_image', {
                 method: 'POST',
                 body: formData,
             });
