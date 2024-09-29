@@ -17,6 +17,10 @@ const Pricing = () => {
       sessionId: session.id,
     })
 
+    if(result.error){
+      console.log(result.error)
+    }
+
   }
   return (
     <div className="bg-white dark:bg-gray-900">
