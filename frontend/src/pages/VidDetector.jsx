@@ -4,9 +4,7 @@ import { CiCircleChevRight } from 'react-icons/ci';
 import { Link } from 'react-router-dom';
 import bg from '../assets/video-bg.png';
 import { FiUploadCloud } from "react-icons/fi";
-import user from '../assets/user.png';
-import { motion, AnimatePresence } from 'framer-motion';
-import Sidebar from '../components/Sidebar';
+import { motion} from 'framer-motion';
 import Footer from '../components/Footer';
 import { useAuth } from '../context/AuthContext';
 import PredictionComponent from '../components/PredictionComponent';
@@ -16,7 +14,7 @@ function VidDetector() {
     const [prediction, setPrediction] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    const [vid, setVID] = useState(null); // To store the selected image
+    const [vid, setVID] = useState(null); 
 
     const { isAuthenticated, user } = useAuth();
 
@@ -117,7 +115,7 @@ function VidDetector() {
                                             type="file"
                                             name="myImage"
                                             className="custom-file-input text-transparent rounded-md bg-transparent outline-none"
-                                            // Event handler to capture file selection and update the state
+                                        
                                             onChange={(event) => {
                                                 setPrediction(null);
                                                 console.log(event.target.files[0]);

@@ -26,7 +26,7 @@ const Success = () => {
         </p>
         <button
           className="px-6 py-3 bg-green-500 text-white rounded-md shadow-md hover:bg-green-600 transition-colors"
-          onClick={() => window.location.href = "/"} // Redirect to homepage or a specific page
+          onClick={() => window.location.href = "/"} 
         >
           Return to Home
         </button>

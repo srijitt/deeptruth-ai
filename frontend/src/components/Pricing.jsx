@@ -9,18 +9,14 @@ const stripePromise = loadStripe("pk_test_51Q4GfVGUiRe4JoDt253YHSEZ5U9c0hi4qoeRj
 const Pricing = () => {
   const makePayment = async () => {
     try {
-      // Load Stripe
       const stripe = await stripePromise;
-
-      // Define request body to be sent to the backend
       const body = {
-        name: "Test User",  // Replace with dynamic user name if needed
-        email: "test@example.com",  // Replace with dynamic user email if needed
-        plan: "Pro",  // You can change this dynamically based on the selected plan
-        price: 10  // The price for the selected plan
+        name: "Test User",  
+        email: "test@example.com", 
+        plan: "Pro",  
+        price: 10 
       };
 
-      // Send POST request to create a checkout session
       const response = await fetch(`${apiURL}/create-checkout-session`, {
         method: "POST",
         headers: {
@@ -29,17 +25,13 @@ const Pricing = () => {
         body: JSON.stringify(body),
       });
 
-      // Parse the response to get the session ID
       const session = await response.json();
 
-      // Check if the session ID was created successfully
       if (session && session.id) {
-        // Redirect to Stripe checkout
         const result = await stripe.redirectToCheckout({
           sessionId: session.id,
         });
 
-        // Handle any errors returned by Stripe
         if (result.error) {
           console.error("Stripe Checkout error:", result.error.message);
         }
@@ -98,7 +90,7 @@ const Pricing = () => {
                     $10.00 <span className="text-base font-medium">/month</span>
                   </h2>
                   <button
-                    onClick={makePayment}  // Updated onClick to use the function correctly
+                    onClick={makePayment}
                     className="w-full px-4 py-2 mt-6 tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:bg-blue-500 focus:ring focus:ring-blue-300 focus:ring-opacity-80"
                   >
                     Start Now

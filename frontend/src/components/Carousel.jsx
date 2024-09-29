@@ -21,13 +21,12 @@ const Carousel = () => {
           x: {
             repeat: Infinity,
             repeatType: 'loop',
-            duration: 60, // Adjust the duration for speed
+            duration: 60, 
             ease: 'linear',
           },
         }}
         whileHover={{ x: 0 }}
       >
-        {/* Duplicating the image set for seamless infinite scroll */}
         {[...images, ...images].map((image, index) => (
           <div
             key={index}

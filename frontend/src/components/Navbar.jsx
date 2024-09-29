@@ -15,7 +15,6 @@ function Navbar() {
             transition={{ type: "spring", stiffness: 50, damping: 20 }}
             className='bg-primary md:w-[60vw] md:rounded-lg md:mt-2 bg-opacity-80 w-full flex flex-row justify-between items-center px-8 py-4'>
             <div className='flex justify-start items-center font-pbold text-white text-xl'>
-                {/* <img src={logo} alt="logo" className='w-[3vw]' /> */}
                 <p className='w-1/2'>deeptruth.ai</p>
             </div>
             <div className='flex flex-row items-center gap-4'>

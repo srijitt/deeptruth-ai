@@ -16,7 +16,7 @@ function AudDetector() {
     const [prediction, setPrediction] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    const [aud, setAUD] = useState(null); // To store the selected image
+    const [aud, setAUD] = useState(null); 
 
     const { isAuthenticated, user } = useAuth();
 
@@ -119,7 +119,6 @@ function AudDetector() {
                                             type="file"
                                             name="myImage"
                                             className="custom-file-input text-transparent rounded-md bg-transparent outline-none"
-                                            // Event handler to capture file selection and update the state
                                             onChange={(event) => {
                                                 setPrediction(null);
                                                 console.log(event.target.files[0]);

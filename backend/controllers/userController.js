@@ -5,21 +5,17 @@ const bcrypt = require('bcrypt');
 const User = require('../models/user');
 const constants = require("../constants");
 
-// Determine role based on username pattern
 const determineUserRole = (username) => {
   return username.startsWith("admin_") ? "admin" : "user";
 };
 
-// Sign-up function
 const Sign_up = asyncHandler(async (req, res) => {
   const { email, password, name, username } = req.body;
 
-  // Validate request
   if (!email || !password || !name || !username) {
     return res.status(400).json("All fields are required");
   }
 
-  // Check if user already exists
   const userExists = await User.findOne({ email });
   const usernameExists = await User.findOne({ username });
   if (userExists) {
@@ -29,13 +25,11 @@ const Sign_up = asyncHandler(async (req, res) => {
     return res.status(400).json({message: "Username already exists"});
   }
 
-  // Determine role based on username pattern
   const role = determineUserRole(username);
 
-  // Hash password
+
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  // Create new user
   const newUser = {
     email,
     username,
@@ -46,7 +40,7 @@ const Sign_up = asyncHandler(async (req, res) => {
 
   const user = await User.create(newUser);
 
-  // Generate JWT without expiration
+
   const accessToken = jwt.sign(
     {
       user: {
@@ -57,24 +51,19 @@ const Sign_up = asyncHandler(async (req, res) => {
     process.env.ACCESS_TOKEN_SECRET
   );
 
-  // Respond with the access token
   res.json({ user, accessToken });
 });
 
-// Sign-in function
 const Sign_in = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
-  // Validate request
   if (!email || !password) {
     return res.status(400).json("All fields are required");
   }
 
-  // Check if user exists
   const userAvailable = await User.findOne({ email });
 
   if (userAvailable && (await bcrypt.compare(password, userAvailable.password))) {
-    // Generate JWT with expiration
     const accessToken = jwt.sign(
       {
         user: {
@@ -86,7 +75,6 @@ const Sign_in = asyncHandler(async (req, res) => {
       { expiresIn: '1h' }
     );
 
-    // Respond with the access token
     res.json({ userAvailable, accessToken });
   } else if (!userAvailable) {
     res.status(401).json({message: "User not found"});
@@ -97,7 +85,7 @@ const Sign_in = asyncHandler(async (req, res) => {
 
 const userProfile = asyncHandler(async (req, res) => {
   try {
-    // Extract the ID from the authenticated user
+
     const id = req.user._id;
 
     if (id) {

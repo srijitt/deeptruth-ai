@@ -6,14 +6,12 @@ import Loader from "./Loader";
 const PredictionComponent = ({ prediction }) => {
   const handleShare = async () => {
     try {
-      // Capture the whole screen
       const canvas = await html2canvas(document.body);
       const imageBlob = await new Promise((resolve) =>
         canvas.toBlob(resolve, "image/png")
       );
 
       if (navigator.share) {
-        // If the browser supports the Web Share API
         const file = new File([imageBlob], "screenshot.png", {
           type: "image/png",
         });

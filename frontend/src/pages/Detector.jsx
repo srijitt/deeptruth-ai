@@ -19,7 +19,7 @@ function Detector() {
     const [prediction, setPrediction] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    const [img, setIMG] = useState(null); // To store the selected image
+    const [img, setIMG] = useState(null); 
     const { user, isAuthenticated } = useAuth();
 
 
@@ -125,7 +125,7 @@ function Detector() {
                                             type="file"
                                             name="myImage"
                                             className="custom-file-input text-transparent rounded-md bg-transparent outline-none"
-                                            // Event handler to capture file selection and update the state
+                                        
                                             onChange={(event) => {
                                                 console.log(event.target.files[0]);
                                                 if (!checkImageType(event.target.files[0])) return;

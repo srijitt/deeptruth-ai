@@ -27,7 +27,7 @@ const Cancel = () => {
         </p>
         <button
           className="px-6 py-3 bg-red-500 text-white rounded-md shadow-md hover:bg-red-600 transition-colors"
-          onClick={() => window.location.href = "/pricing"} // Redirect to the pricing or retry page
+          onClick={() => window.location.href = "/pricing"}
         >
           Retry Payment
         </button>
