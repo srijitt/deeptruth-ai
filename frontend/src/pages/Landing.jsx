@@ -11,6 +11,7 @@ import { useAuth } from '../context/AuthContext';
 import { IoCloudUpload } from "react-icons/io5";
 import { FaBrain } from "react-icons/fa";
 import { TbReportSearch } from "react-icons/tb";
+import Pricing from '../components/Pricing';
 
 const Landing = () => {
 
@@ -105,8 +106,9 @@ const Landing = () => {
                     <div className='flex flex-col items-start justify-center mt-4'>
                         <Blog />
                     </div>
+                    <Pricing></Pricing>
                 </div>
-
+                
                 <div className='bg-secondary md:rounded-t-lg bg-opacity-50 w-full md:w-[60vw]'>
                     <Footer />
                 </div>

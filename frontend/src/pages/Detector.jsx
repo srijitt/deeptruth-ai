@@ -24,7 +24,7 @@ function Detector() {
 
     const handleSubmit = async () => {
         console.log("Submitting Image: ", img);
-        setLoading(true);
+        
         const formData = new FormData();
         formData.append('file', img);
 
@@ -36,6 +36,7 @@ function Detector() {
 
             const data = await response.json();
             if (response.ok) {
+                setLoading(false)
                 console.log(data);
                 setPrediction(data.label);
             } else {
