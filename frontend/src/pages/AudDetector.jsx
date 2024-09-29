@@ -26,7 +26,7 @@ function AudDetector() {
         formData.append('file', aud);
 
         try {
-            const response = await fetch('https://ce29-49-37-34-186.ngrok-free.app/predict_audio', {
+            const response = await fetch('https://cab1-49-37-34-186.ngrok-free.app/predict_audio', {
                 method: 'POST',
                 body: formData,
             });
