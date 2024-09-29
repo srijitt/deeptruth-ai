@@ -24,11 +24,12 @@ function Detector() {
 
     const handleSubmit = async () => {
         console.log("Submitting Image: ", img);
-        setLoading(true);
+        
         const formData = new FormData();
         formData.append('file', img);
 
         try {
+            setLoading(true);
             const response = await fetch('https://ce29-49-37-34-186.ngrok-free.app/predict_image', {
                 method: 'POST',
                 body: formData,
@@ -36,6 +37,7 @@ function Detector() {
 
             const data = await response.json();
             if (response.ok) {
+                setLoading(false)
                 console.log(data);
                 setPrediction(data.label);
             } else {

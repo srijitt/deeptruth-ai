@@ -21,11 +21,10 @@ function VidDetector() {
 
     const handleSubmit = async () => {
         console.log("Submitting Video: ", vid);
-        setLoading(true);
         const formData = new FormData();
         formData.append('file', vid);
-
         try {
+            setLoading(true);
             const response = await fetch('https://ce29-49-37-34-186.ngrok-free.app/predict_video', {
                 method: 'POST',
                 body: formData,
@@ -35,6 +34,7 @@ function VidDetector() {
             if (response.ok) {
                 console.log(data);
                 setPrediction(data.label);
+                setLoading(false);
             } else {
                 console.error(data);
             }
