@@ -26,7 +26,7 @@ function VidDetector() {
         formData.append('file', vid);
 
         try {
-            const response = await fetch('http://192.168.0.113:5000/predict_video', {
+            const response = await fetch('https://ce29-49-37-34-186.ngrok-free.app/predict_video', {
                 method: 'POST',
                 body: formData,
             });

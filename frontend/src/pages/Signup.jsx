@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { FiLoader } from 'react-icons/fi';
+import { FiEye, FiEyeOff, FiLoader } from 'react-icons/fi';
 import { motion } from 'framer-motion';
 
 function Signup() {
@@ -11,7 +11,9 @@ function Signup() {
         name: '',
         email: '',
         password: ''
-    })
+    });
+
+    const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const { login, url } = useAuth();
@@ -82,7 +84,11 @@ function Signup() {
 
                         <input type="email" placeholder="Email" className='w-[70vw] lg:w-[25vw] text-white px-4 py-3 bg-primary rounded-md mt-4 focus:outline-none focus:caret-secondary' onChange={(e) => setData({ ...data, email: e.target.value })} />
 
-                        <input type="password" placeholder="Password" className='w-[70vw] lg:w-[25vw] text-white px-4 py-3 bg-primary rounded-md mt-4 focus:outline-none focus:caret-secondary' onChange={(e) => setData({ ...data, password: e.target.value })} />
+                        <div className='flex items-center justify-between mt-4 bg-primary rounded-md f w-[70vw] lg:w-[25vw] text-white px-4 py-3 '>
+                            <input type={showPassword ? `text` : `password`} placeholder="Password" className=' focus:outline-none active:outline-none focus:caret-secondary' onChange={(e) => setData({ ...data, password: e.target.value })} />
+
+                            <button onClick={() => setShowPassword(!showPassword)}>{showPassword ? <FiEyeOff /> : <FiEye />}</button>
+                        </div>
 
                         <button type='submit' className={`mt-10 bg-white text-primary font-pbold px-8 py-2 rounded-lg disabled:opacity-30`} disabled={loading} onClick={handleSignup}>{loading ? <FiLoader /> : "Signup"}</button>
                     </div>
