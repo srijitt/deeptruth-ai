@@ -44,9 +44,9 @@ function AudDetector() {
         } finally {
             setLoading(false);
         }
-    };
+    }; 
 
-    const throttledCheck = useCallback(throttle(handleSubmit, 5000), []);
+    const throttledCheck = useCallback(throttle(handleSubmit, 5000), [aud]);
 
     const checkAudioType = (file) => {
         const types = ['audio/mp3', 'audio/wav'];
