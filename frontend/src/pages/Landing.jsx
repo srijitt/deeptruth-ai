@@ -106,7 +106,7 @@ const Landing = () => {
                     <div className='flex flex-col items-start justify-center mt-4'>
                         <Blog />
                     </div>
-                    <Pricing></Pricing>
+                    {/* <Pricing></Pricing> */}
                 </div>
                 
                 <div className='bg-secondary md:rounded-t-lg bg-opacity-50 w-full md:w-[60vw]'>
