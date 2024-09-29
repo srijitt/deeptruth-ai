@@ -5,21 +5,24 @@ function Blog() {
     const blogs = [
         {
             id: 1,
-            category: 'CATEGORY',
-            title: 'Bitters hashtag waistcoat fashion axe chia unicorn',
-            desc: 'Glossier echo park pug, church-key sartorial biodiesel vexillologist pop-up snackwave ramps cornhole. Marfa 3 wolf moon party messenger bag selfies, poke vaporware kombucha lumbersexual pork belly polaroid hoodie portland craft beer.'
+            category: 'Celebs',
+            title: 'How scammers use deepfakes of celebs to steal millions from fans',
+            desc: 'Scammers in Australia are using deepfake photos and videos of celebrities to steal from people in increasingly creative ways. Australians have lost up to $8 million to scammers using online investment platform scams this year, according to the Australian Competition and Consumer Commission.',
+            to: 'https://www.businessinsider.in/finance/news/how-scammers-use-deepfakes-of-celebs-to-steal-millions-from-fans/articleshow/110627770.cms'
         },
         {
             id: 2,
-            category: 'CATEGORY',
-            title: 'Meditation bushwick direct trade taxidermy shaman',
-            desc: 'Glossier echo park pug, church-key sartorial biodiesel vexillologist pop-up snackwave ramps cornhole. Marfa 3 wolf moon party messenger bag selfies, poke vaporware kombucha lumbersexual pork belly polaroid hoodie portland craft beer.'
+            category: 'Deepfakes',
+            title: "(Deep)Fake it till you make it? Bollywood celebrities won't hear of it",
+            desc: 'An increasing number of Bollywood celebrities are turning to the Copyright Act and the Information Technology Act to prevent abuse of their personality rights through generative artificial intelligence (AI), particularly deepfakes, in the absence of specific laws to combat this escalating concern.',
+            to: 'https://economictimes.indiatimes.com/news/india/deepfake-it-till-you-make-it-bollywood-celebrities-wont-hear-of-it/articleshow/113157044.cms'
         },
         {
             id: 3,
-            category: 'CATEGORY',
-            title: 'Woke master cleanse drinking vinegar salvia',
-            desc: 'Glossier echo park pug, church-key sartorial biodiesel vexillologist pop-up snackwave ramps cornhole. Marfa 3 wolf moon party messenger bag selfies, poke vaporware kombucha lumbersexual pork belly polaroid hoodie portland craft beer.'
+            category: 'Bollywood',
+            title: 'Rashmika Mandanna, deepfakes and us: I find myself constantly questioning the safety of uploading personal information and disclosing my travel location',
+            desc: 'Earlier this week, Prime Minister Narendra Modi addressed the dangers of “deepfake” content, emphasising the role of artificial intelligence in spreading fake news and misinformation. This concern comes on the heels of a deepfake AI-generated video featuring Indian actor Rashmika Mandanna',
+            to: 'https://indianexpress.com/article/opinion/columns/rashmika-mandanna-deepfake-social-media-9032088/'
         }
     ]
 
@@ -37,7 +40,7 @@ function Blog() {
                             <div className="md:flex-grow">
                                 <h2 className="text-2xl font-medium text-white title-font mb-2">{blog.title}</h2>
                                 <p className="leading-relaxed text-white">{blog.desc}</p>
-                                <a className="text-secondary inline-flex items-center mt-4">Learn More
+                                <a href={blog.to} target='__blank' className="text-secondary inline-flex items-center mt-4">Learn More
                                     <svg className="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M5 12h14"></path>
                                         <path d="M12 5l7 7-7 7"></path>

@@ -62,7 +62,7 @@ const Landing = () => {
                         className='w-[90vw] md:w-[80vw] lg:w-[70vw] xl:w-[50vw] flex flex-col items-start md:items-center justify-center bg-primary bg-opacity-70 rounded-2xl py-14 md:py-16 lg:py-20 pl-8'>
                         <div className='flex flex-col items-start md:items-center md:text-center justify-center'>
                             <h1 className='text-4xl lg:text-5xl font-pbold text-white w-fit'>Can you tell what's <span className='text-secondary'>real?</span></h1>
-                            <p className='mt-2 lg:mt-4 text-white text-xs md:text-sm lg:text-md font-pthin w-2/3'>Lt is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters</p>
+                            <p className='mt-2 lg:mt-4 text-white text-xs md:text-sm lg:text-md font-pthin w-2/3'>Detect deepfakes instantly with our AI-powered tool. Upload an image, let our advanced model analyze it, and find out if it's real or fake. Protect yourself from manipulated media and ensure authenticity in just a few clicks.</p>
                         </div>
 
                         <div className='flex flex-col items-start justify-center mt-6'>
@@ -78,7 +78,7 @@ const Landing = () => {
                 <div className='mt-14 w-full flex flex-col items-start md:items-center justify-center px-8'>
                     <div className='md:text-center'>
                         <h1 className='text-3xl font-pbold'>It's pretty much simple.</h1>
-                        <p className='text-xs'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione, exercitationem.</p>
+                        <p className='text-xs'>Follow these quick steps to verify the authenticity of any image effortlessly.</p>
                     </div>
                     <div className='flex flex-col items-start justify-center mt-4'>
                         <div className='flex flex-wrap justify-between items-center gap-4'>
@@ -101,7 +101,7 @@ const Landing = () => {
                 <div className='pt-24 px-8 pb-20 md:px-8 w-full flex flex-col items-start md:items-center justify-center'>
                 <div className='md:text-center'>
                         <h1 className='text-3xl lg:text-4xl font-pbold'>Blogs on deepfakes</h1>
-                        <p className='text-xs'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione, exercitationem.</p>
+                        <p className='text-xs'>Stay informed with the latest insights, trends, and research on deepfakes and digital authenticity.</p>
                     </div>
                     <div className='flex flex-col items-start justify-center mt-4'>
                         <Blog />

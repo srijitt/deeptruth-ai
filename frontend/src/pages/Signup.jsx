@@ -72,7 +72,7 @@ function Signup() {
                 <div className='bg-layer w-[90vw] lg:w-[45vw] h-[75vh] lg:h-[60vh] xl:h-[75vh] py-10 rounded-lg flex flex-col items-center'>
                     <div className='flex flex-col justify-center items-center'>
                         <h1 className='text-secondary text-3xl font-pbold'>Signup</h1>
-                        <p className='mt-2 text-xs font-pregular w-2/3 text-center'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus, recusandae.</p>
+                        <p className='mt-2 text-xs font-pregular w-2/3 text-center'>Create your account to start detecting deepfakes and secure your digital presence.</p>
                     </div>
 
                     <div className='text-sm text-red-400'>{error}</div>
