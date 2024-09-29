@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { CiCircleChevRight } from 'react-icons/ci';
 import { Link } from 'react-router-dom';
@@ -10,6 +10,7 @@ import Sidebar from '../components/Sidebar';
 import Footer from '../components/Footer';
 import { useAuth } from '../context/AuthContext';
 import PredictionComponent from '../components/PredictionComponent';
+import { throttle } from "lodash";
 
 function AudDetector() {
     const [prediction, setPrediction] = useState(null);
@@ -26,7 +27,7 @@ function AudDetector() {
         formData.append('file', aud);
 
         try {
-            const response = await fetch('https://bc42-49-37-34-186.ngrok-free.app/predict_audio', {
+            const response = await fetch('https://49ed-49-37-34-186.ngrok-free.app/predict_audio', {
                 method: 'POST',
                 body: formData,
             });
@@ -44,6 +45,8 @@ function AudDetector() {
             setLoading(false);
         }
     };
+
+    const throttledCheck = useCallback(throttle(handleSubmit, 5000), []);
 
     const checkAudioType = (file) => {
         const types = ['audio/mp3', 'audio/wav'];
@@ -90,7 +93,7 @@ function AudDetector() {
                         <div className='p-16 rounded-xl text-center bg-layer bg-opacity-90 flex flex-col items-center justify-center'>
                             <p>{aud.name} <span className='text-xs italic'>({(aud.size / (1024 * 1024)).toFixed(2)} MB)</span></p>
                             <div className='flex justify-center items-center gap-4'>
-                                <button className={`mt-8 bg-white text-primary font-psemibold hover:blur-[1px] hover:text-primary px-5 py-2 rounded-md font-medium disabled:opacity-25 disabled:cursor-wait`} disabled={loading} onClick={handleSubmit}>
+                                <button onClick={throttledCheck} className={`mt-8 bg-white text-primary font-psemibold hover:blur-[1px] hover:text-primary px-5 py-2 rounded-md font-medium disabled:opacity-25 disabled:cursor-wait`} disabled={loading}>
                                     <span>Check</span>
                                 </button>
 

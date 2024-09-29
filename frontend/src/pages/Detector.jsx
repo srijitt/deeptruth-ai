@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { CiCircleChevRight } from 'react-icons/ci';
 import { Link } from 'react-router-dom';
@@ -13,6 +13,7 @@ import Loader from '../components/Loader';
 import html2canvas from 'html2canvas';
 import { FiShare2 } from 'react-icons/fi';
 import PredictionComponent from '../components/PredictionComponent';
+import { throttle } from "lodash";
 
 function Detector() {
     const [prediction, setPrediction] = useState(null);
@@ -29,7 +30,7 @@ function Detector() {
         formData.append('file', img);
 
         try {
-            const response = await fetch('https://bc42-49-37-34-186.ngrok-free.app/predict_image', {
+            const response = await fetch('https://49ed-49-37-34-186.ngrok-free.app/predict_image', {
                 method: 'POST',
                 body: formData,
             });
@@ -48,6 +49,8 @@ function Detector() {
             setLoading(false);
         }
     };
+
+    const throttledHandleSubmit = useCallback(throttle(handleSubmit, 5000), [img]);
 
     const checkImageType = (file) => {
         const types = ['image/png', 'image/jpeg', 'image/jpg'];
@@ -96,7 +99,7 @@ function Detector() {
                         <div className='p-16 rounded-xl text-center bg-layer bg-opacity-90 flex flex-col items-center justify-center'>
                             <img src={URL.createObjectURL(img)} alt="" className='w-[20vw] object-contain rounded-xl' />
                             <div className='flex justify-center items-center gap-4'>
-                                <button className={`mt-8 bg-white text-primary font-psemibold hover:blur-[1px] hover:text-primary px-5 py-2 rounded-md font-medium disabled:opacity-25 disabled:cursor-wait`} disabled={loading} onClick={handleSubmit}>
+                                <button onClick={throttledHandleSubmit} className={`mt-8 bg-white text-primary font-psemibold hover:blur-[1px] hover:text-primary px-5 py-2 rounded-md font-medium disabled:opacity-25 disabled:cursor-wait`} disabled={loading}>
                                     <span>Check</span>
                                 </button>
 

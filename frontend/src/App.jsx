@@ -9,6 +9,8 @@ import { AuthProvider } from './context/AuthContext';
 import Profile from './pages/Profile';
 import VidDetector from './pages/VidDetector';
 import AudDetector from './pages/AudDetector';
+import Cancel from './components/Cancel';
+import Success from './components/Succes';
 
 function App() {
 
@@ -24,6 +26,8 @@ function App() {
             <Route exact path="/video" element={<VidDetector />} />
             <Route exact path="/audio" element={<AudDetector />} />
             <Route exact path="/profile" element={<Profile />} />
+            <Route exact path="/cancel" element={<Cancel />} />
+            <Route exact path="/success" element={<Success />} />
           </Routes>
         </AuthProvider>
       </Router>
