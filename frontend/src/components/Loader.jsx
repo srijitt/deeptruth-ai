@@ -1,14 +1,11 @@
 import React from 'react';
-import './Loader.css'; // Import CSS for styling
 
 const Loader = () => {
-    return (
-        <div className="skeleton-loader">
-            <div className="skeleton-title mb-6"></div>
-            <div className="skeleton-paragraph"></div>
-            <div className="skeleton-paragraph"></div>
-        </div>
-    );
+  return (
+    <div className="flex justify-center items-center h-full w-full">
+      <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-secondary"></div>
+    </div>
+  );
 };
 
 export default Loader;
